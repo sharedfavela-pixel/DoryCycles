@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fff4f8">
+<meta name="description" content="DORYCYCLES - Bien-être et suivi du cycle menstruel.">
+<title>DORYCYCLES | Mon bien-être</title>
+
+<style>
+:root {
+  --pink:#e95e9d;
+  --pink-light:#fff0f6;
+  --purple:#8260b4;
+  --lavender:#f0e9ff;
+  --cream:#fffaf5;
+  --ink:#382d42;
+  --muted:#887c8c;
+  --white:#fff;
+  --line:#f1e3ed;
+  --green:#45846c;
+  --shadow:0 8px 28px #69405c0c;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:var(--cream);color:var(--ink);
+  line-height:1.55;padding-bottom:95px;
+}
+button,input,select,textarea {font:inherit}
+button {cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible {
+  outline:3px solid #c8a5f4;outline-offset:3px;
+}
+header {
+  position:sticky;top:0;z-index:20;
+  background:#fffaf5ed;backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.topbar {
+  max-width:900px;margin:auto;padding:13px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.brand {font-size:20px;font-weight:900;letter-spacing:-.7px;color:var(--pink)}
+.brand span {color:var(--purple)}
+.lang {
+  display:flex;background:#f2e9f4;padding:4px;border-radius:14px;gap:3px;
+}
+.lang button {
+  border:0;border-radius:10px;padding:7px 10px;
+  color:var(--muted);background:transparent;font-size:12px;font-weight:800;
+}
+.lang button.active {background:white;color:var(--purple);box-shadow:var(--shadow)}
+main {max-width:900px;margin:auto;padding:20px 16px 35px}
+.page {display:none;animation:appear .22s ease}
+.page.active {display:block}
+@keyframes appear {from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+.hero {
+  padding:27px 23px;border-radius:27px;
+  background:linear-gradient(135deg,#ffe0ed,#eee5ff 95%);
+  position:relative;overflow:hidden;margin-bottom:24px;
+}
+.hero:after {
+  content:"🌸";position:absolute;right:8px;top:15px;
+  font-size:75px;opacity:.22;transform:rotate(15deg);
+}
+.eyebrow {color:var(--purple);font-size:11px;font-weight:900;letter-spacing:1.5px}
+h1 {font-size:clamp(29px,6vw,42px);line-height:1.14;margin:10px 0}
+.hero p {max-width:460px;color:#75657d;font-size:14px}
+.btn {
+  display:inline-flex;justify-content:center;align-items:center;gap:7px;
+  background:var(--pink);color:white;border:0;border-radius:15px;
+  padding:13px 17px;font-weight:800;margin-top:18px;
+  box-shadow:0 6px 15px #e95e9d26;
+}
+.btn.secondary {background:var(--lavender);color:var(--purple);box-shadow:none}
+.btn.full {width:100%}
+.section-head {margin:24px 0 14px}
+.section-head h2 {font-size:22px;letter-spacing:-.5px}
+.section-head p {font-size:13px;color:var(--muted);margin-top:4px}
+.grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card {
+  background:white;border:1px solid var(--line);border-radius:21px;
+  padding:18px;box-shadow:var(--shadow);min-width:0;
+}
+.card h3 {font-size:16px;margin-bottom:7px}
+.card p,.muted {color:var(--muted);font-size:13px}
+.stat {background:white;border:1px solid var(--line);border-radius:18px;padding:15px}
+.stat .icon {font-size:21px}
+.stat small {display:block;color:var(--muted);font-size:11px;margin-top:8px}
+.stat strong {display:block;font-size:19px;overflow-wrap:anywhere;margin-top:4px}
+.pink-card {background:var(--pink-light);border-color:#f9dfeb}
+.purple-card {background:#f4efff;border-color:#e8ddfc}
+.field {margin:15px 0}
+label {display:block;font-size:13px;font-weight:750;margin-bottom:7px}
+input,select,textarea {
+  width:100%;border:1px solid var(--line);border-radius:13px;
+  padding:12px;background:#fffafd;color:var(--ink);min-width:0;
+}
+textarea {resize:vertical}
+.note {margin-top:13px;padding:13px;background:#f7f1ff;color:#6c5389;border-radius:13px;font-size:12px}
+.circle {
+  width:148px;height:148px;margin:19px auto;border-radius:50%;
+  background:linear-gradient(145deg,#ed86b8,#a28be0);
+  border:9px solid #f9eff9;color:white;display:flex;
+  align-items:center;justify-content:center;flex-direction:column;
+}
+.circle strong {font-size:38px;line-height:1.1}
+.center {text-align:center}
+.symptoms {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.symptom {
+  display:flex;align-items:center;gap:9px;
+  padding:12px;border:1px solid var(--line);border-radius:13px;
+  background:#fffafd;font-size:13px;
+}
+.symptom input {width:17px;height:17px;accent-color:var(--pink)}
+.tip-icon {font-size:27px;margin-bottom:7px}
+.setting-row {display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 0;border-bottom:1px solid var(--line)}
+.setting-row:last-child {border:0}
+.bottom-nav {
+  position:fixed;bottom:0;left:0;right:0;z-index:30;
+  background:#fffdfbf2;backdrop-filter:blur(15px);
+  border-top:1px solid var(--line);
+  padding:9px 5px calc(9px + env(safe-area-inset-bottom));
+  display:flex;justify-content:center;
+}
+.nav-inner {width:100%;max-width:600px;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav-btn {
+  border:0;background:transparent;color:#93869a;
+  padding:5px 1px;display:flex;flex-direction:column;align-items:center;
+  gap:3px;font-size:10px;font-weight:750;border-radius:12px;
+}
+.nav-btn .nav-icon {font-size:21px;line-height:1.3}
+.nav-btn.active {color:var(--pink);background:var(--pink-light)}
+footer {text-align:center;color:var(--muted);font-size:11px;padding:22px 10px}
+.message {font-size:13px;color:var(--green);margin-top:12px;overflow-wrap:anywhere}
+.danger {color:#a23b57}
+.hidden {display:none!important}
+@media(min-width:650px) {
+  main {padding:28px 24px 45px}
+  .hero {padding:40px}
+  .three {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .bottom-nav {bottom:15px;left:50%;right:auto;transform:translateX(-50%);width:min(610px,calc(100% - 24px));border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding-bottom:9px}
+  body {padding-bottom:105px}
+}
+@media(max-width:370px) {
+  .brand {font-size:17px}
+  .grid {grid-template-columns:1fr}
+  .hero {padding:22px 17px}
+  .nav-btn {font-size:9px}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="topbar">
+    <a href="#home" class="brand" aria-label="DORYCYCLES">DORY<span>CYCLES</span> 🌸</a>
+    <div class="lang" aria-label="Language">
+      <button type="button" data-lang="ht" class="active">KREYÒL</button>
+      <button type="button" data-lang="fr">FRANÇAIS</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="page active" id="home">
+    <div class="hero">
+      <div class="eyebrow" data-i18n="eyebrow">BYENNÈT OU, PRiyorite OU</div>
+      <h1 data-i18n="welcome">Konnen kò w.<br>Pran swen tèt ou.</h1>
+      <p data-i18n="intro">Yon espas dous pou ede w suiv sik règ ou epi pi byen konprann kò w.</p>
+      <button class="btn" data-go="tracker" data-i18n="start">🌸 Kòmanse swivi mwen</button>
+    </div>
+
+    <div class="section-head">
+      <h2 data-i18n="overview">Rezime sik mwen</h2>
+      <p data-i18n="overviewSub">Enfòmasyon ki baze sou dat ou antre yo.</p>
+    </div>
+
+    <div class="grid three">
+      <div class="stat pink-card">
+        <span class="icon">🩸</span>
+        <small data-i18n="nextPeriod">Pwochen règ estime</small>
+        <strong id="homeNext">--</strong>
+      </div>
+      <div class="stat purple-card">
+        <span class="icon">🌷</span>
+        <small data-i18n="cycleDuration">Dire sik la</small>
+        <strong id="homeCycle">28 jou</strong>
+      </div>
+      <div class="stat">
+        <span class="icon">💗</span>
+        <small data-i18n="daysRemaining">Jou ki rete</small>
+        <strong id="homeRemaining">--</strong>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2 data-i18n="todayCare">Pran swen tèt ou jodi a</h2>
+    </div>
+    <div class="card">
+      <h3 data-i18n="careTitle">🌼 Koute kò w</h3>
+      <p data-i18n="careText">Repoze w lè w bezwen sa, bwè dlo, epi sonje chak moun ka viv règ yo yon fason diferan.</p>
+      <button class="btn secondary" data-go="advice" data-i18n="moreAdvice">Li konsèy yo</button>
+    </div>
+  </section>
+
+  <section class="page" id="tracker">
+    <div class="section-head">
+      <h2 data-i18n="trackerTitle">🩸 Swivi sik règ mwen</h2>
+      <p data-i18n="trackerSub">Antre dat yo pou jwenn yon estimasyon.</p>
+    </div>
+
+    <div class="card">
+      <form id="cycleForm">
+        <div class="field">
+          <label for="lastPeriod" data-i18n="lastDate">Premye jou dènye règ mwen</label>
+          <input type="date" id="lastPeriod" required>
+        </div>
+        <div class="field">
+          <label for="cycleDays" data-i18n="cycleLengthLabel">Dire sik mwen (jou)</label>
+          <select id="cycleDays">
+            <option value="21">21</option><option value="22">22</option>
+            <option value="23">23</option><option value="24">24</option>
+            <option value="25">25</option><option value="26">26</option>
+            <option value="27">27</option><option value="28" selected>28</option>
+            <option value="29">29</option><option value="30">30</option>
+            <option value="31">31</option><option value="32">32</option>
+            <option value="33">33</option><option value="34">34</option>
+            <option value="35">35</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="periodDays" data-i18n="periodLengthLabel">Konbyen jou règ la dire?</label>
+          <select id="periodDays">
+            <option value="2">2</option><option value="3">3</option>
+            <option value="4">4</option><option value="5" selected>5</option>
+            <option value="6">6</option><option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </div>
+        <button class="btn full" type="submit" data-i18n="calculate">Kalkile estimasyon mwen</button>
+        <p class="message" id="cycleMessage" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <div class="card center" style="margin-top:15px">
+      <h3 data-i18n="cycleToday">Kote mwen ye nan sik la</h3>
+      <div class="circle"><strong id="cycleDay">--</strong><span data-i18n="cycleDayLabel">Jou nan sik la</span></div>
+      <p id="phaseText" class="muted" data-i18n="noCycle">Antre dat ou pou kòmanse.</p>
+    </div>
+
+    <div class="note" data-i18n="estimateWarning">Estimasyon sa yo pa garanti kilè règ oswa ovilasyon ap fèt. Pa sèvi avè yo kòm metòd pou evite gwosès.</div>
+  </section>
+
+  <section class="page" id="symptoms">
+    <div class="section-head">
+      <h2 data-i18n="symptomTitle">💗 Kijan ou santi w?</h2>
+      <p data-i18n="symptomSub">Chwazi sa w ap santi jodi a.</p>
+    </div>
+    <div class="card">
+      <form id="symptomForm">
+        <div class="symptoms">
+          <label class="symptom"><input type="checkbox" name="symptom" value="cramps"><span data-i18n="cramps">Kranp nan vant</span></label>
+          <label class="symptom"><input type="checkbox" name="symptom" value="fatigue"><span data-i18n="fatigue">Fatig</span></label>
+          <label class="symptom"><input type="checkbox" name="symptom" value="headache"><span data-i18n="headache">Maltèt</span></label>
+          <label class="symptom"><input type="checkbox" name="symptom" value="bloating"><span data-i18n="bloating">Vant gonfle</span></label>
+          <label class="symptom"><input type="checkbox" name="symptom" value="sad"><span data-i18n="sad">Tristès</span></label>
+          <label class="symptom"><input type="checkbox" name="symptom" value="good"><span data-i18n="goodMood">Bon imè</span></label>
+        </div>
+        <div class="field">
+          <label for="notes" data-i18n="notesLabel">Nòt pèsonèl (si ou vle)</label>
+          <textarea id="notes" rows="3" data-i18n-placeholder="notesPlaceholder" placeholder="Ekri kijan ou santi w..."></textarea>
+        </div>
+        <button class="btn full" type="submit" data-i18n="saveSymptoms">Anrejistre obsèvasyon mwen</button>
+        <p id="symptomMessage" class="message" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="page" id="advice">
+    <div class="section-head">
+      <h2 data-i18n="adviceTitle">🌷 Konsèy pou byennèt ou</h2>
+      <p data-i18n="adviceSub">Ti abitid ki ka ede w pran swen tèt ou.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="tip-icon">💧</div>
+        <h3 data-i18n="waterTitle">Bwè dlo</h3>
+        <p data-i18n="waterText">Bwè dlo regilyèman epi manje divès kalite manje ki nourisan.</p>
+      </article>
+      <article class="card">
+        <div class="tip-icon">🧘🏽‍♀️</div>
+        <h3 data-i18n="restTitle">Repoze w</h3>
+        <p data-i18n="restText">Repo, mouvman dous ak yon konprès tyèd ka ede soulaje kèk kranp.</p>
+      </article>
+      <article class="card">
+        <div class="tip-icon">🩷</div>
+        <h3 data-i18n="hygieneTitle">Ijyèn règ</h3>
+        <p data-i18n="hygieneText">Chanje pwodui règ ou regilyèman epi lave men w anvan ak apre.</p>
+      </article>
+      <article class="card">
+        <div class="tip-icon">🩺</div>
+        <h3 data-i18n="doctorTitle">Chèche èd lè sa nesesè</h3>
+        <p data-i18n="doctorText">Si doulè a grav, senyen an twòp oswa sentòm yo dwòl, kontakte yon pwofesyonèl lasante.</p>
+      </article>
+    </div>
+    <div class="note" data-i18n="healthNote">Enfòmasyon sa yo se enfòmasyon edikatif. Yo pa ranplase konsèy yon pwofesyonèl lasante.</div>
+  </section>
+
+  <section class="page" id="settings">
+    <div class="section-head">
+      <h2 data-i18n="settingsTitle">⚙️ Paramèt mwen</h2>
+      <p data-i18n="settingsSub">Pèsonalize DORYCYCLES.</p>
+    </div>
+    <div class="card">
+      <div class="setting-row">
+        <div><h3 data-i18n="languageTitle">Lang sit la</h3><p class="muted" data-i18n="languageSub">Chwazi lang ou prefere a.</p></div>
+        <div class="lang">
+          <button type="button" data-lang="ht">KREYÒL</button>
+          <button type="button" data-lang="fr">FRANÇAIS</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <div><h3 data-i18n="privacyTitle">🔒 Konfidansyalite</h3><p class="muted" data-i18n="privacyText">Dat sik ou yo rete sou navigatè aparèy sa a.</p></div>
+      </div>
+      <div class="setting-row">
+        <div><h3 data-i18n="clearTitle">Efase done lokal yo</h3><p class="muted" data-i18n="clearText">Efase dat ak preferans ki sove yo.</p></div>
+        <button type="button" class="btn secondary" style="margin:0" id="clearData" data-i18n="clearButton">Efase</button>
+      </div>
+      <p id="settingsMessage" class="message" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand">DORY<span>CYCLES</span> 🌸</div>
+    <p data-i18n="footerText">Pran swen kò w. Renmen tèt ou.</p>
+    <p>© <span id="year"></span> DORYCYCLES</p>
+  </footer>
+</main>
+
+<nav class="bottom-nav" aria-label="Navigation">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-page="home"><span class="nav-icon">🏠</span><span data-i18n="navHome">Akèy</span></button>
+    <button class="nav-btn" data-page="tracker"><span class="nav-icon">🩸</span><span data-i18n="navTracker">Sik mwen</span></button>
+    <button class="nav-btn" data-page="symptoms"><span class="nav-icon">💗</span><span data-i18n="navSymptoms">Sentòm</span></button>
+    <button class="nav-btn" data-page="advice"><span class="nav-icon">🌷</span><span data-i18n="navAdvice">Konsèy</span></button>
+    <button class="nav-btn" data-page="settings"><span class="nav-icon">⚙️</span><span data-i18n="navSettings">Paramèt</span></button>
+  </div>
+</nav>
+
+<script>
+const translations = {
+  ht: {
+    eyebrow:"BYENNÈT OU, PRiyorite OU",
+    welcome:"Konnen kò w.<br>Pran swen tèt ou.",
+    intro:"Yon espas dous pou ede w suiv sik règ ou epi pi byen konprann kò w.",
+    start:"🌸 Kòmanse swivi mwen",overview:"Rezime sik mwen",
+    overviewSub:"Enfòmasyon ki baze sou dat ou antre yo.",
+    nextPeriod:"Pwochen règ estime",cycleDuration:"Dire sik la",
+    daysRemaining:"Jou ki rete",todayCare:"Pran swen tèt ou jodi a",
+    careTitle:"🌼 Koute kò w",
+    careText:"Repoze w lè w bezwen sa, bwè dlo, epi sonje chak moun ka viv règ yo yon fason diferan.",
+    moreAdvice:"Li konsèy yo",trackerTitle:"🩸 Swivi sik règ mwen",
+    trackerSub:"Antre dat yo pou jwenn yon estimasyon.",
+    lastDate:"Premye jou dènye règ mwen",cycleLengthLabel:"Dire sik mwen (jou)",
+    periodLengthLabel:"Konbyen jou règ la dire?",calculate:"Kalkile estimasyon mwen",
+    cycleToday:"Kote mwen ye nan sik la",cycleDayLabel:"Jou nan sik la",
+    noCycle:"Antre dat ou pou kòmanse.",
+    estimateWarning:"Estimasyon sa yo pa garanti kilè règ oswa ovilasyon ap fèt. Pa sèvi avè yo kòm metòd pou evite gwosès.",
+    symptomTitle:"💗 Kijan ou santi w?",symptomSub:"Chwazi sa w ap santi jodi a.",
+    cramps:"Kranp nan vant",fatigue:"Fatig",headache:"Maltèt",
+    bloating:"Vant gonfle",sad:"Tristès",goodMood:"Bon imè",
+    notesLabel:"Nòt pèsonèl (si ou vle)",notesPlaceholder:"Ekri kijan ou santi w...",
+    saveSymptoms:"Anrejistre obsèvasyon mwen",adviceTitle:"🌷 Konsèy pou byennèt ou",
+    adviceSub:"Ti abitid ki ka ede w pran swen tèt ou.",
+    waterTitle:"Bwè dlo",waterText:"Bwè dlo regilyèman epi manje divès kalite manje ki nourisan.",
+    restTitle:"Repoze w",restText:"Repo, mouvman dous ak yon konprès tyèd ka ede soulaje kèk kranp.",
+    hygieneTitle:"Ijyèn règ",hygieneText:"Chanje pwodui règ ou regilyèman epi lave men w anvan ak apre.",
+    doctorTitle:"Chèche èd lè sa nesesè",
+    doctorText:"Si doulè a grav, senyen an twòp oswa sentòm yo dwòl, kontakte yon pwofesyonèl lasante.",
+    healthNote:"Enfòmasyon sa yo se enfòmasyon edikatif. Yo pa ranplase konsèy yon pwofesyonèl lasante.",
+    settingsTitle:"⚙️ Paramèt mwen",settingsSub:"Pèsonalize DORYCYCLES.",
+    languageTitle:"Lang sit la",languageSub:"Chwazi lang ou prefere a.",
+    privacyTitle:"🔒 Konfidansyalite",
+    privacyText:"Dat sik ou yo rete sou navigatè aparèy sa a.",
+    clearTitle:"Efase done lokal yo",
+    clearText:"Efase dat ak preferans ki sove yo.",clearButton:"Efase",
+    footerText:"Pran swen kò w. Renmen tèt ou.",
+    navHome:"Akèy",navTracker:"Sik mwen",navSymptoms:"Sentòm",
+    navAdvice:"Konsèy",navSettings:"Paramèt",
+    saved:"Estimasyon an fèt. Sonje se yon previzyon sèlman.",
+    invalid:"Tanpri verifye dat ou antre a.",
+    future:"Dat la pa ka nan lavni.",
+    noDate:"Antre dat dènye règ ou an dabò.",
+    periodNext:"Règ la ka kòmanse jodi a selon estimasyon an.",
+    days:"jou",cyclePhasePeriod:"Ou ka nan peryòd règ ou. Obsève kò w.",
+    cyclePhaseOther:"Kontinye note chanjman kò w. Faz sik la se yon estimasyon.",
+    symptomsSaved:"Obsèvasyon yo parèt anba a; yo poko sove pou lontan.",
+    selected:"Sentòm ou chwazi yo",none:"Pa gen sentòm chwazi",
+    cleared:"Done lokal yo efase.",confirmClear:"Èske ou vle efase dat ak done lokal DORYCYCLES yo?",
+    langChanged:"Lang lan chanje."
+  },
+  fr: {
+    eyebrow:"TON BIEN-ÊTRE, NOTRE PRIORITÉ",
+    welcome:"Comprends ton corps.<br>Prends soin de toi.",
+    intro:"Un espace bienveillant pour suivre ton cycle menstruel et mieux comprendre ton corps.",
+    start:"🌸 Commencer mon suivi",overview:"Résumé de mon cycle",
+    overviewSub:"Informations basées sur les dates que tu renseignes.",
+    nextPeriod:"Prochaines règles estimées",cycleDuration:"Durée du cycle",
+    daysRemaining:"Jours restants",todayCare:"Prends soin de toi aujourd'hui",
+    careTitle:"🌼 Écoute ton corps",
+    careText:"Repose-toi quand tu en as besoin, bois de l'eau et rappelle-toi que chaque personne vit ses règles différemment.",
+    moreAdvice:"Lire les conseils",trackerTitle:"🩸 Suivi de mon cycle",
+    trackerSub:"Renseigne tes dates pour obtenir une estimation.",
+    lastDate:"Premier jour de tes dernières règles",cycleLengthLabel:"Durée du cycle (jours)",
+    periodLengthLabel:"Durée des règles (jours)",calculate:"Calculer mon estimation",
+    cycleToday:"Où suis-je dans mon cycle ?",cycleDayLabel:"Jour du cycle",
+    noCycle:"Renseigne une date pour commencer.",
+    estimateWarning:"Ces estimations ne garantissent ni les dates des règles ni l'ovulation. Ne les utilise pas comme méthode contraceptive.",
+    symptomTitle:"💗 Comment te sens-tu ?",symptomSub:"Sélectionne ce que tu ressens aujourd'hui.",
+    cramps:"Crampes",fatigue:"Fatigue",headache:"Maux de tête",
+    bloating:"Ballonnements",sad:"Tristesse",goodMood:"Bonne humeur",
+    notesLabel:"Notes personnelles (facultatif)",notesPlaceholder:"Écris comment tu te sens...",
+    saveSymptoms:"Enregistrer mes observations",adviceTitle:"🌷 Conseils bien-être",
+    adviceSub:"Quelques habitudes pour prendre soin de toi.",
+    waterTitle:"Hydratation",waterText:"Bois régulièrement de l'eau et privilégie une alimentation variée et nutritive.",
+    restTitle:"Repos",restText:"Le repos, les mouvements doux et une compresse tiède peuvent aider à soulager certaines crampes.",
+    hygieneTitle:"Hygiène menstruelle",hygieneText:"Change régulièrement tes protections menstruelles et lave-toi les mains avant et après.",
+    doctorTitle:"Demander de l'aide si nécessaire",
+    doctorText:"En cas de douleur intense, de saignements très abondants ou de symptômes inhabituels, contacte un professionnel de santé.",
+    healthNote:"Ces informations sont éducatives et ne remplacent pas l'avis d'un professionnel de santé.",
+    settingsTitle:"⚙️ Mes paramètres",settingsSub:"Personnalise DORYCYCLES.",
+    languageTitle:"Langue du site",languageSub:"Choisis ta langue préférée.",
+    privacyTitle:"🔒 Confidentialité",
+    privacyText:"Les dates de ton cycle restent dans le navigateur de cet appareil.",
+    clearTitle:"Effacer les données locales",
+    clearText:"Supprimer les dates et préférences enregistrées.",clearButton:"Effacer",
+    footerText:"Prends soin de ton corps. Aime-toi.",
+    navHome:"Accueil",navTracker:"Mon cycle",navSymptoms:"Symptômes",
+    navAdvice:"Conseils",navSettings:"Paramètres",
+    saved:"Estimation calculée. Il s'agit uniquement d'une prévision.",
+    invalid:"Vérifie la date que tu as saisie.",
+    future:"La date ne peut pas être dans le futur.",
+    noDate:"Renseigne d'abord le premier jour de tes dernières règles.",
+    periodNext:"Les règles pourraient commencer aujourd'hui selon l'estimation.",
+    days:"jours",cyclePhasePeriod:"Les règles sont possibles à ce stade. Observe ton corps.",
+    cyclePhaseOther:"Continue à noter les changements de ton corps. La phase est estimée.",
+    symptomsSaved:"Tes observations sont affichées ci-dessous ; elles ne sont pas enregistrées durablement.",
+    selected:"Symptômes sélectionnés",none:"Aucun symptôme sélectionné",
+    cleared:"Les données locales ont été effacées.",
+    confirmClear:"Veux-tu vraiment effacer les dates et données locales de DORYCYCLES ?",
+    langChanged:"La langue a été modifiée."
+  }
+};
+
+let lang = "ht";
+let lastResult = null;
+
+function t(key) {
+  return translations[lang][key] || translations.fr[key] || key;
+}
+
+function setLanguage(next) {
+  lang = next;
+  document.documentElement.lang = next === "ht" ? "ht" : "fr";
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const value = t(el.dataset.i18n);
+    if (value.includes("<br>")) el.innerHTML = value;
+    else el.textContent = value;
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+
+  document.querySelectorAll("[data-lang]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.lang === next);
+  });
+
+  try { localStorage.setItem("dory_lang", next); } catch(e) {}
+  document.title = "DORYCYCLES | " +
+    (next === "ht" ? "Byennèt ou" : "Mon bien-être");
+
+  if (lastResult) renderResult(lastResult);
+  updateHome();
+}
+
+document.querySelectorAll("[data-lang]").forEach(btn => {
+  btn.addEventListener("click", () => setLanguage(btn.dataset.lang));
+});
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === id);
+  });
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === id);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-page]").forEach(btn => {
+  btn.addEventListener("click", () => showPage(btn.dataset.page));
+});
+document.querySelectorAll("[data-go]").forEach(btn => {
+  btn.addEventListener("click", () => showPage(btn.dataset.go));
+});
+
+function parseDate(value) {
+  if (!value) return null;
+  const parts = value.split("-").map(Number);
+  if (parts.length !== 3 || parts.some(Number.isNaN)) return null;
+  const date = new Date(Date.UTC(parts[0],parts[1]-1,parts[2]));
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+function utcToday() {
+  const now = new Date();
+  return new Date(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate()));
+}
+function addDays(date, amount) {
+  const result = new Date(date);
+  result.setUTCDate(result.getUTCDate()+amount);
+  return result;
+}
+function diffDays(a,b) {
+  return Math.round((b-a)/86400000);
+}
+function formatDate(date) {
+  return new Intl.DateTimeFormat(lang === "ht" ? "fr-FR" : "fr-FR", {
+    day:"numeric",month:"short",year:"numeric",timeZone:"UTC"
+  }).format(date);
+}
+
+const dateInput = document.getElementById("lastPeriod");
+const cycleInput = document.getElementById("cycleDays");
+const periodInput = document.getElementById("periodDays");
+
+function renderResult(result) {
+  const {next,remaining,day,cycle,period} = result;
+  document.getElementById("homeNext").textContent = formatDate(next);
+  document.getElementById("homeCycle").textContent = cycle+" "+t("days");
+  document.getElementById("homeRemaining").textContent = remaining+" "+t("days");
+  document.getElementById("cycleDay").textContent = day;
+  document.getElementById("phaseText").textContent =
+    day <= period ? t("cyclePhasePeriod") : t("cyclePhaseOther");
+}
+
+function updateHome() {
+  if (lastResult) renderResult(lastResult);
+  else {
+    document.getElementById("homeNext").textContent = "--";
+    document.getElementById("homeRemaining").textContent = "--";
+    document.getElementById("homeCycle").textContent =
+      cycleInput.value+" "+t("days");
+  }
+}
+
+document.getElementById("cycleForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const start = parseDate(dateInput.value);
+  const cycle = Number(cycleInput.value);
+  const period = Number(periodInput.value);
+  const today = utcToday();
+  const message = document.getElementById("cycleMessage");
+
+  if (!start) {
+    message.textContent = t("invalid");
+    return;
+  }
+  if (start > today) {
+    message.textContent = t("future");
+    return;
+  }
+
+  const elapsed = diffDays(start,today);
+  const passed = Math.floor(elapsed/cycle);
+  const currentStart = addDays(start,passed*cycle);
+  const next = addDays(currentStart,cycle);
+  const day = diffDays(currentStart,today)+1;
+  const remaining = diffDays(today,next);
+
+  lastResult = {next,remaining,day,cycle,period};
+  renderResult(lastResult);
+  message.textContent = t("saved");
+
+  try {
+    localStorage.setItem("dory_start",dateInput.value);
+    localStorage.setItem("dory_cycle",String(cycle));
+    localStorage.setItem("dory_period",String(period));
+  } catch(e) {}
+});
+
+document.getElementById("symptomForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const selected = [...document.querySelectorAll(
+    'input[name="symptom"]:checked'
+  )].map(el => t(el.value));
+  const notes = document.getElementById("notes").value.trim();
+  const message = document.getElementById("symptomMessage");
+
+  message.textContent =
+    t("selected")+": "+(selected.length ? selected.join(", ") : t("none"))+
+    (notes ? " — "+notes : "")+". "+t("symptomsSaved");
+});
+
+document.getElementById("clearData").addEventListener("click", () => {
+  const message = document.getElementById("settingsMessage");
+  if (!window.confirm(t("confirmClear"))) return;
+
+  try {
+    ["dory_start","dory_cycle","dory_period"].forEach(key =>
+      localStorage.removeItem(key)
+    );
+  } catch(e) {}
+
+  dateInput.value = "";
+  cycleInput.value = "28";
+  periodInput.value = "5";
+  lastResult = null;
+  document.getElementById("cycleMessage").textContent = "";
+  document.getElementById("symptomMessage").textContent = "";
+  document.getElementById("notes").value = "";
+  document.querySelectorAll('input[name="symptom"]').forEach(el => el.checked=false);
+  document.getElementById("cycleDay").textContent = "--";
+  document.getElementById("phaseText").textContent = t("noCycle");
+  updateHome();
+  message.textContent = t("cleared");
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+try {
+  const savedLang = localStorage.getItem("dory_lang");
+  if (savedLang === "ht" || savedLang === "fr") lang = savedLang;
+
+  const savedStart = localStorage.getItem("dory_start");
+  const savedCycle = localStorage.getItem("dory_cycle");
+  const savedPeriod = localStorage.getItem("dory_period");
+
+  if (savedStart) dateInput.value = savedStart;
+  if (savedCycle && Number(savedCycle)>=21 && Number(savedCycle)<=35)
+    cycleInput.value = savedCycle;
+  if (savedPeriod && Number(savedPeriod)>=2 && Number(savedPeriod)<=8)
+    periodInput.value = savedPeriod;
+} catch(e) {}
+
+setLanguage(lang);
+
+if (dateInput.value) {
+  const start = parseDate(dateInput.value);
+  if (start && start <= utcToday()) {
+    const elapsed = diffDays(start,utcToday());
+    const cycle = Number(cycleInput.value);
+    const period = Number(periodInput.value);
+    const currentStart = addDays(start,Math.floor(elapsed/cycle)*cycle);
+    lastResult = {
+      next:addDays(currentStart,cycle),
+      remaining:diffDays(utcToday(),addDays(currentStart,cycle)),
+      day:diffDays(currentStart,utcToday())+1,
+      cycle,period
+    };
+    renderResult(lastResult);
+  }
+}
+</script>
+</body>
+</html>
+i
